@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ParserTest {
 
     @Test
-    void scanOneLineTokens() {
+    void parseArithmeticExpr() {
         var source = "-1 + 6 / 3";
         var scanner = new Scanner(source);
         var tokens = scanner.scanTokens();
