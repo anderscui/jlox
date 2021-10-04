@@ -6,17 +6,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class InterpreterTest {
 
-    private Expr parse(String source) {
+    private Expr parseExpr(String source) {
         var scanner = new Scanner(source);
         var tokens = scanner.scanTokens();
 
         var parser = new Parser(tokens);
-        return parser.parse();
+        var stmts = parser.parse();
+        return ((Stmt.Expression)stmts.get(0)).expression;
     }
 
     @Test
     void interpreterArithmeticExpr() {
-        Expr expr = parse("-1 + 6 / 3");
+        Expr expr = parseExpr("-1 + 6 / 3");
         System.out.println(new AstPrinter().print(expr));
 
         var interpreter = new Interpreter();
@@ -26,7 +27,7 @@ class InterpreterTest {
 
     @Test
     void interpreterComparisonExpr() {
-        Expr expr = parse("(1 + 2) <= 5");
+        Expr expr = parseExpr("(1 + 2) <= 5");
         System.out.println(new AstPrinter().print(expr));
 
         var interpreter = new Interpreter();
@@ -36,7 +37,7 @@ class InterpreterTest {
 
     @Test
     void interpreterStringConcatExpr() {
-        Expr expr = parse("\"abc\" * 3");
+        Expr expr = parseExpr("\"abc\" * 3");
         System.out.println(new AstPrinter().print(expr));
 
         var interpreter = new Interpreter();
@@ -46,7 +47,7 @@ class InterpreterTest {
 
     @Test
     void interpreterStringConcat2Expr() {
-        Expr expr = parse("3 * \"abc\"");
+        Expr expr = parseExpr("3 * \"abc\"");
         System.out.println(new AstPrinter().print(expr));
 
         var interpreter = new Interpreter();
@@ -56,7 +57,7 @@ class InterpreterTest {
 
     @Test
     void interpreterRuntimeError() {
-        Expr expr = parse("2 * (3 / -\"abc\")");
+        Expr expr = parseExpr("2 * (3 / -\"abc\")");
         System.out.println(new AstPrinter().print(expr));
 
         var interpreter = new Interpreter();
