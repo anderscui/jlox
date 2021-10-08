@@ -1,0 +1,39 @@
+// built-in functions
+print clock();
+
+// define a function
+fun add(a, b) {
+    return a + b;
+}
+print "sum: " + add(1, 2);
+
+// recursive function
+fun factorial(n) {
+    if (n <= 1) return 1;
+    return n * factorial(n-1);
+}
+for (var i = 1; i <= 5; i = i + 1) {
+    print "factorial(" + i + "): " + factorial(i);
+}
+
+// closures
+fun makeCounter() {
+    var i = 0;
+    fun count() {
+        i = i + 1;
+        print i;
+    }
+
+    return count;
+}
+
+var counter = makeCounter();
+counter(); // 1
+counter(); // 2
+
+// scopes
+fun f(a) {
+    var a = 1; // local overwriting
+    print a;
+}
+f(2); // 1
