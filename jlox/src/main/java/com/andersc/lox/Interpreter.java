@@ -5,28 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.andersc.lox.Util.*;
+
 public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     final Environment globals = new Environment();
     private Environment environment = globals;
     private final Map<Expr, Integer> locals = new HashMap<>();
 
     Interpreter() {
-        globals.define("clock", new LoxCallable() {
-            @Override
-            public Object call(Interpreter interpreter, List<Object> arguments) {
-                return (double)System.currentTimeMillis() / 1000.0;
-            }
-
-            @Override
-            public int arity() {
-                return 0;
-            }
-
-            @Override
-            public String toString() {
-                return "<native fn: clock>";
-            }
-        });
+        for (var entry : Globals.values.entrySet()) {
+            globals.define(entry.getKey(), entry.getValue());
+        }
     }
 
     public void interpret(List<Stmt> statements) {
@@ -41,19 +30,6 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     private void execute(Stmt stmt) {
         stmt.accept(this);
-    }
-
-    private String stringify(Object object) {
-        if (object == null) return "nil";
-
-        if (object instanceof Double) {
-            String text = object.toString();
-            if (text.endsWith(".0")) {
-                text = text.substring(0, text.length() - 2);
-            }
-            return text;
-        }
-        return object.toString();
     }
 
     public Object evaluate(Expr expr) {
@@ -187,12 +163,6 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     private void checkNumberOperands(Token operator, Object left, Object right) {
         if (left instanceof Double && right instanceof Double) return;
         throw new RuntimeError(operator, "Operands must be numbers.");
-    }
-
-    private boolean isTruthy(Object object) {
-        if (object == null) return false;
-        if (object instanceof Boolean) return (boolean) object;
-        return true;
     }
 
     private boolean isEqual(Object a, Object b) {
