@@ -33,7 +33,20 @@ counter(); // 2
 
 // scopes
 fun f(a) {
-    var a = 1; // local overwriting
+    // var a = 1; // local shadowing not allowed.
     print a;
 }
 f(2); // 1
+
+var a = "global";
+{
+    fun showA() {
+        print a;
+    }
+
+    showA(); // global
+    var a = "local";
+    showA(); // global
+}
+
+// return 1; // Can't return from top-level code.

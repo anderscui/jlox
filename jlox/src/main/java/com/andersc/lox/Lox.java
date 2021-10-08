@@ -61,6 +61,9 @@ public class Lox {
         var parser = new Parser(tokens);
         var statements = parser.parse();
 
+        var resolver = new Resolver(interpreter);
+        resolver.resolve(statements);
+
         if (hadError) return;
 
         interpreter.interpret(statements);
