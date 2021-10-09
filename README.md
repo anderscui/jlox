@@ -5,7 +5,7 @@ A Lox implementation in Java.
 * [Read the book - Crafting Interpreters](https://craftinginterpreters.com/contents.html)
 * [Visit the repository](https://github.com/munificent/craftinginterpreters)
 
-## features
+## Features
 
 * tokens and lexing
 * abstract syntax trees
@@ -88,6 +88,8 @@ primary        → "true" | "false" | "nil"
 
 ## Built-in global functions and constants
 
+* E: `e`
+* PI: `π`
 * input(): read characters from console
 * show(object): print
 * showLine(object): println
