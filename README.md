@@ -1,9 +1,33 @@
 # jlox
+
 A Lox implementation in Java.
 
-```bash
-# BNF grammar
+* [Read the book - Crafting Interpreters](https://craftinginterpreters.com/contents.html)
+* [Visit the repository](https://github.com/munificent/craftinginterpreters)
 
+## features
+
+* tokens and lexing
+* abstract syntax trees
+* recursive descent parsing
+* prefix and infix expressions
+* runtime representation of objects
+* interpreting code using the Visitor pattern
+* lexical scope
+* environment chains for storing variables
+* control flow
+* functions with parameters
+* closures
+* static variable resolution and error detection
+* classes
+* constructors
+* fields
+* methods
+* inheritance
+
+## BNF grammar
+
+```bash
 program        → declaration* EOF ;
 
 declaration    → classDecl
@@ -11,7 +35,7 @@ declaration    → classDecl
                | varDecl
                | statement ;
 
-classDecl      → "class" IDENTIFIER "{" function* "}" ;
+classDecl      → "class" IDENTIFIER ( "<" IDENTIFIER )? "{" function* "}" ;
 
 funDecl        → "fun" function ;
 function       → IDENTIFIER "(" parameters? ")" block ;
@@ -57,7 +81,18 @@ call           → primary ( "(" arguments? ") | "." IDENTIFIER )* ;
 arguments      → expression ( "," expression )* ;
 
 primary        → "true" | "false" | "nil"
-               | NUMBER | STRING
+               | NUMBER | STRING | IDENTIFIER
                | "(" expression ")"
-               | IDENTIFIER ;
+               | "super" "." IDENTIFIER ;
 ```
+
+## Built-in global functions and constants
+
+* input(): read characters from console
+* show(object): print
+* showLine(object): println
+* string(object)
+* bool(object)
+* number(object)
+* randomNumber(upperBound)
+* hasProperty(object, name)

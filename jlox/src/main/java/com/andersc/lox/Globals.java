@@ -148,5 +148,34 @@ public class Globals {
                 return "<native fn: randomNumber>";
             }
         });
+
+        values.put("hasProperty", new LoxCallable() {
+            @Override
+            public Boolean call(Interpreter interpreter, List<Object> arguments) {
+                var object = arguments.get(0);
+                var propertyName = arguments.get(1);
+                assert object instanceof LoxInstance;
+                assert propertyName instanceof String;
+
+                var nameToken = new Token(TokenType.IDENTIFIER, (String)propertyName, null, -1);
+
+                try {
+                    var property = ((LoxInstance)object).get(nameToken);
+                    return true;
+                } catch (RuntimeError re) {
+                    return false;
+                }
+            }
+
+            @Override
+            public int arity() {
+                return 2;
+            }
+
+            @Override
+            public String toString() {
+                return "<native fn: hasProperty>";
+            }
+        });
     }
 }

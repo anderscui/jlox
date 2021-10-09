@@ -32,3 +32,49 @@ var circle = Circle(3);
 showLine(circle);
 showLine(circle.area);
 showLine(circle.area());
+
+// inheritance
+class Doughnut {
+    cook() {
+        showLine("Fry until golden brown.");
+    }
+}
+
+class BostonCream < Doughnut {}
+
+BostonCream().cook();
+
+// inheritance
+class A {
+    m() {
+        showLine("A method");
+    }
+}
+
+class B < A {
+    m() {
+        showLine("B method");
+    }
+
+    test() {
+        super.m();
+    }
+}
+
+class C < B {}
+
+C().test(); // should be "A method" instead of "B method".
+
+// showLine(super.someMethod()); // Can't use 'super' outside of a class.
+
+var obj = B();
+showLine("hasProperty(B, m): " + hasProperty(obj, "m");
+showLine("hasProperty(B, test): " + hasProperty(obj, "test");
+if (hasProperty(obj, "n")) {
+    showLine("property found.");
+} else {
+    showLine("property not found.");
+}
+
+var obj2 = C();
+showLine("hasProperty(C, m): " + hasProperty(obj2, "m");
