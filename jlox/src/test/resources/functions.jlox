@@ -1,5 +1,5 @@
 // built-in functions
-print clock();
+showLine("Hello world!");
 
 // define a function
 fun add(a, b) {

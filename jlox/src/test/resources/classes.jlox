@@ -1,0 +1,34 @@
+// a "hello world" class
+class DevonshireCream {
+    serveOn() {
+        return "Scores";
+    }
+}
+showLine(DevonshireCream);
+
+// use "this" reference.
+class Cake {
+    taste() {
+        showLine(this.flavor);
+    }
+}
+
+var cake = Cake();
+cake.flavor = "chocolate";
+cake.taste();
+
+// normal OOP
+class Circle {
+    init(radius) {
+        this.radius = radius;
+    }
+
+    area() {
+        return PI * this.radius * this.radius;
+    }
+}
+
+var circle = Circle(3);
+showLine(circle);
+showLine(circle.area);
+showLine(circle.area());

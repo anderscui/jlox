@@ -17,7 +17,8 @@ showLine("random number in [0, 10): " + randomNumber(10));
 
 
 // constants
-var radius = 3;
-showLine(PI * radius * radius);
+showLine("pi = " + PI);
 showLine("e = " + E);
 
+var E = 1;
+showLine("e = " + E);
